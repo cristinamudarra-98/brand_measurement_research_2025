@@ -1,0 +1,95 @@
+additional_info: "v0 Mediator - Brand Measurement Model"
+
+
+data : 
+  file_path: 'data/datamaster/transformed/merged/datamaster_emea_v2.xlsx'
+  start_date: '2022-06-01'
+  end_date: '2024-11-23'
+  seasonality_n_order : 5
+  test_size : .10
+  dependent_variable_seasonality : False
+  dependent_variable_trend : False
+  mediator_variable_seasonality : False
+  mediator_variable_trend : False
+
+
+variables:
+  dep_var: 'Total_WT'
+  original_paid_features:
+    - 'marketing_artist_spend_emea'
+    - 'marketing_brand_spend_emea'
+    - 'marketing_shorts_spend_emea'
+  original_organic_features:
+    - 'product_launch_pillar_music_&_premium'
+    - 'product_launch_pillar_ctv'
+    - 'product_launch_pillar_core_&_resp'
+    - 'product_launch_pillar_creator'
+    - 'product_launch_pillar_emco'
+  original_competitor_features:
+    - 'Active Users_Instagram'
+    - 'Active Users_TikTok'
+    - 'Instagram_perception_mean'
+    - 'TikTok_perception_mean'
+  original_control_features:
+    - 'YouTube_perception_mean'
+    - 'Premium_WT_Percentage'
+    - 'holiday_count'
+
+  mediator_var: 'DAVs_daily_active_viewers'
+  mediator_original_paid_features:
+    - 'marketing_brand_spend_emea'
+  mediator_original_organic_features:
+    - 'product_launch_pillar_core_&_resp'
+  mediator_original_competitor_features:
+    - 'Instagram_perception_mean'
+    - 'TikTok_perception_mean'
+  mediator_original_control_features:
+    - 'YouTube_perception_mean'
+    - 'holiday_count'
+
+  date_column:
+    - date
+
+scaling:
+  paid: 
+    type: "MaxAbsScaler"
+  organic:
+    type: "MaxAbsScaler"
+  competitor:
+    type: "MinMaxScaler"
+  control:
+    type: "MinMaxScaler"
+  target:
+    type: "MinMaxScaler"
+  mediator:
+    type: "MinMaxScaler"
+  mediator_paid: 
+    type: "MaxAbsScaler"
+  mediator_organic:
+    type: "MaxAbsScaler"
+  mediator_competitor:
+    type: "MinMaxScaler"
+  mediator_control:
+    type: "MinMaxScaler"
+
+priors:
+  intercept_sigma: 1
+  beta_paid_coeffs_sigma: 1
+  beta_organic_coeffs_sigma: 1
+  beta_competitor_sigma: 1
+  beta_control_coeffs_sigma: .5
+  beta_trend_sigma: 1
+  beta_fourier_sigma: 1
+
+  mediator_intercept_sigma: 1
+  beta_mediator_paid_coeffs_sigma: 1
+  beta_mediator_organic_coeffs_sigma: 1
+  beta_mediator_competitor_sigma: 1
+  beta_mediator_control_coeffs_sigma: .5
+  beta_mediator_trend_sigma: 1
+  beta_mediator_fourier_sigma: 1
+
+  alpha_alpa: 2 # adstock
+  alpha_beta: 2 # adstock
+  l_max: 8
+
