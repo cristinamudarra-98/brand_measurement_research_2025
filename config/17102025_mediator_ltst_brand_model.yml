@@ -1,0 +1,124 @@
+additional_info: "v0 Mediator - Brand Measurement Model"
+
+
+data : 
+  file_path: 'data/252209_Brand_Product_Trade_Modelling _datamaster.xlsx'
+  start_date: '2022-07-01'
+  end_date: '2025-07-27'
+  seasonality_n_order : 5
+  test_size : .10
+  dependent_variable_seasonality : False
+  dependent_variable_trend : False
+  mediator_lt_variable_seasonality : False
+  mediator_lt_variable_trend : False
+  mediator_st_variable_seasonality : False
+  mediator_st_variable_trend : False
+  rolling_avg: True
+
+
+variables:
+  dep_var: 'Activated_Orders_total'
+  original_paid_features:
+    - 'Media_Spend_new_Net_Total_Brand'
+    - 'Media_Spend_new_Net_Total_Product'
+    - 'Media_Spend_new_Net_Total_Trade'
+    - 'Media_Spend_new_Net_Total_Offer'
+  original_organic_features:
+
+  original_competitor_features:
+    - 'Brutto_media_spend_total_relevant_competitor' 
+
+  original_control_features:
+    - 'Commission_p_Transaction_Total'
+    - 'HW Voucher_p_Transaction_Total'
+    - 'MB/Euro_o2_Total'
+
+  mediator_lt_var: 'Mafo_NPS Score_O2'
+
+  mediator_lt_original_paid_features:
+    - 'Media_Spend_new_Net_Total_Brand'
+    - 'Media_Spend_new_Net_Total_Product'
+    - 'Media_Spend_new_Net_Total_Trade'
+    - 'Media_Spend_new_Net_Total_Offer'
+  mediator_lt_original_organic_features:
+
+  mediator_lt_original_competitor_features:
+    - 'Brutto_media_spend_total_relevant_competitor' 
+
+  mediator_lt_original_control_features:
+    - 'Commission_p_Transaction_Total'
+    - 'HW Voucher_p_Transaction_Total'
+    - 'MB/Euro_o2_Total'
+
+
+  mediator_st_var: 'Search_Share_o2'
+
+  mediator_st_original_paid_features:
+    - 'Media_Spend_new_Net_Total_Brand'
+    - 'Media_Spend_new_Net_Total_Product'
+    - 'Media_Spend_new_Net_Total_Trade'
+    - 'Media_Spend_new_Net_Total_Offer'
+  mediator_st_original_organic_features:
+
+  mediator_st_original_competitor_features:
+    - 'Brutto_media_spend_total_relevant_competitor' 
+
+  mediator_st_original_control_features:
+    - 'Commission_p_Transaction_Total'
+    - 'HW Voucher_p_Transaction_Total'
+    - 'MB/Euro_o2_Total'
+
+  date_column:
+    - date
+
+scaling:
+  paid: 
+    type: "MaxAbsScaler"
+  organic:
+    type: "MaxAbsScaler"
+  competitor:
+    type: "MinMaxScaler"
+  control:
+    type: "MinMaxScaler"
+  target:
+    type: "MinMaxScaler"
+  mediator:
+    type: "MinMaxScaler"
+  mediator_paid: 
+    type: "MaxAbsScaler"
+  mediator_organic:
+    type: "MaxAbsScaler"
+  mediator_competitor:
+    type: "MinMaxScaler"
+  mediator_control:
+    type: "MinMaxScaler"
+
+priors:
+  intercept_sigma: 1
+  beta_paid_coeffs_sigma: 1
+  beta_organic_coeffs_sigma: 1
+  beta_competitor_sigma: 1
+  beta_control_coeffs_sigma: .5
+  beta_trend_sigma: 1
+  beta_fourier_sigma: 1
+
+  mediator_lt_intercept_sigma: 1
+  beta_mediator_lt_paid_coeffs_sigma: 1
+  beta_mediator_lt_organic_coeffs_sigma: 1
+  beta_mediator_lt_competitor_sigma: 1
+  beta_mediator_lt_control_coeffs_sigma: .5
+  beta_mediator_lt_trend_sigma: 1
+  beta_mediator_lt_fourier_sigma: 1
+
+  mediator_st_intercept_sigma: 1
+  beta_mediator_st_paid_coeffs_sigma: 1
+  beta_mediator_st_organic_coeffs_sigma: 1
+  beta_mediator_st_competitor_sigma: 1
+  beta_mediator_st_control_coeffs_sigma: .5
+  beta_mediator_st_trend_sigma: 1
+  beta_mediator_st_fourier_sigma: 1
+
+  alpha_alpa: 2 # adstock
+  alpha_beta: 2 # adstock
+  l_max: 8
+
